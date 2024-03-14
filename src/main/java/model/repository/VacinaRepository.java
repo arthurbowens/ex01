@@ -68,6 +68,17 @@ public class VacinaRepository  implements BaseRepository<Vacina>{
 		return excluiu;
 	}
 
+	
+	@Override
+	public ArrayList<Vacina> consultarTodos() {
+
+		return null;
+	}
+	
+	
+	
+	
+	
 	@Override
 	public boolean alterar(Vacina entidade) {
 		// TODO Auto-generated method stub
@@ -76,12 +87,6 @@ public class VacinaRepository  implements BaseRepository<Vacina>{
 
 	@Override
 	public Vacina consultarPorId(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Vacina> consultarTodos() {
 		// TODO Auto-generated method stub
 		return null;
 	}
