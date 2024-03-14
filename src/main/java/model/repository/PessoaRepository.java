@@ -14,13 +14,12 @@ public class PessoaRepository implements BaseRepository<Pessoa> {
 
 	@Override
 	public Pessoa salvar(Pessoa novaPessoa) {
-		String query = "INSERT INTO pessoa (nome, email, dataNascimento, sexo, cpf) VALUES (?, ?, ?, ?)";
+		String query = "INSERT INTO pessoa (nome, dataNascimento, sexo, cpf, tipoPessoa) VALUES (?, ?, ?, ?, ?)";
 		Connection conn = Banco.getConnection();
 		PreparedStatement pstmt = Banco.getPreparedStatementWithPk(conn, query);
 		try {
-			// TODO este bloco repete-se no alterar().... refatorar!
+			
 			preencherParametrosParaInsertOuUpdate(pstmt, novaPessoa);
-
 			pstmt.execute();
 			ResultSet resultado = pstmt.getGeneratedKeys();
 
@@ -39,9 +38,10 @@ public class PessoaRepository implements BaseRepository<Pessoa> {
 
 	private void preencherParametrosParaInsertOuUpdate(PreparedStatement pstmt, Pessoa novaPessoa) throws SQLException {
 		pstmt.setString(1, novaPessoa.getNome());
-		pstmt.setDate(3, Date.valueOf(novaPessoa.getDataNascimento()));
-		pstmt.setString(4, novaPessoa.getSexo());
-		pstmt.setString(5, novaPessoa.getCpf());
+		pstmt.setDate(2, Date.valueOf(novaPessoa.getDataNascimento()));
+		pstmt.setString(3, novaPessoa.getSexo());
+		pstmt.setString(4, novaPessoa.getCpf());
+		pstmt.setString(5, novaPessoa.gettipoDePessoa());
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class PessoaRepository implements BaseRepository<Pessoa> {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
 		boolean excluiu = false;
-		String query = "DELETE FROM pessoa WHERE id = " + id;
+		String query = "DELETE FROM pessoa WHERE idpessoa = " + id;
 		try {
 			if (stmt.executeUpdate(query) == 1) {
 				excluiu = true;
@@ -81,10 +81,12 @@ public class PessoaRepository implements BaseRepository<Pessoa> {
 				Pessoa pessoa = new Pessoa();
 				
 				//TODO este bloco repete-se no consultarTodos().... refatorar!
-				pessoa.setNome(resultado.getString("NOME"));
-				pessoa.setDataNascimento(resultado.getDate("DATA_NASCIMENTO").toLocalDate()); 
-				pessoa.setSexo(resultado.getString("SEXO"));
-				pessoa.setCpf(resultado.getString("CPF"));
+				pessoa.setId(Integer.parseInt(resultado.getString("idpessoa")));
+				pessoa.setNome(resultado.getString("nome"));
+				pessoa.setDataNascimento(resultado.getDate("dataNascimento").toLocalDate()); 
+				pessoa.setSexo(resultado.getString("sexo"));
+				pessoa.setCpf(resultado.getString("cpf"));
+				pessoa.settipoDePessoa(resultado.getString("tipoPessoa"));
 				pessoas.add(pessoa);
 			}
 		} catch (SQLException erro){

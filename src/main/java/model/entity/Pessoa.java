@@ -9,14 +9,16 @@ public class Pessoa {
 	private LocalDate dataNascimento;
 	private String sexo;
 	private String cpf;
+	private String tipoDePessoa;
 
-	public Pessoa(int id, String nome, LocalDate dataNascimento, String sexo, String cpf) {
+	public Pessoa(int id, String nome, LocalDate dataNascimento, String sexo, String cpf, String tipoPessoa) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
 		this.sexo = sexo;
 		this.cpf = cpf;
+		this.tipoDePessoa = tipoPessoa;
 	}
 
 	public Pessoa() {
@@ -62,6 +64,20 @@ public class Pessoa {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String gettipoDePessoa() {
+		return tipoDePessoa;
+	}
+
+	public void settipoDePessoa(String tipoDePessoa) {
+		this.tipoDePessoa = tipoDePessoa;
+	}
+
+	@Override
+	public String toString() {
+		return "id: " + id + ", nome: " + nome + ", dataNascimento: " + dataNascimento + ", sexo: " + sexo
+				+ ", cpf: " + cpf + ", tipoPessoa: " + tipoDePessoa + "]";
 	}
 
 

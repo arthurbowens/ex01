@@ -19,7 +19,6 @@ public class PessoaController {
 private PessoaService service = new PessoaService();
 	
 	@POST
-	@Path("/salvar")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Pessoa salvar(Pessoa novaPessoa){
