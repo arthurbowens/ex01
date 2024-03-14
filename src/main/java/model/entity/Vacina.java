@@ -4,22 +4,43 @@ import java.time.LocalDate;
 
 public class Vacina {
 
+	private int idVacina;
+	private String nome;
 	private String paisOrigem;
-	private int estagioPesquisa;
+	private Pessoa pesquisadorResponsavel;
+	private int estagio;
 	private LocalDate dataInicioPesquisa;
-	private String pesquisadorResponsavel;
 
-	public Vacina(String paisOrigem, int estagioPesquisa, LocalDate dataInicioPesquisa, String pesquisadorResponsavel) {
+	public Vacina(int idVacina, String nome, String paisOrigem, Pessoa pesquisadorResponsavel, int estagio,
+			LocalDate dataInicioPesquisa) {
 		super();
+		this.idVacina = idVacina;
+		this.nome = nome;
 		this.paisOrigem = paisOrigem;
-		this.estagioPesquisa = estagioPesquisa;
-		this.dataInicioPesquisa = dataInicioPesquisa;
 		this.pesquisadorResponsavel = pesquisadorResponsavel;
+		this.estagio = estagio;
+		this.dataInicioPesquisa = dataInicioPesquisa;
 	}
 
 	public Vacina() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public int getIdVacina() {
+		return idVacina;
+	}
+
+	public void setIdVacina(int idVacina) {
+		this.idVacina = idVacina;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getPaisOrigem() {
@@ -30,12 +51,20 @@ public class Vacina {
 		this.paisOrigem = paisOrigem;
 	}
 
-	public int getEstagioPesquisa() {
-		return estagioPesquisa;
+	public Pessoa getPesquisadorResponsavel() {
+		return pesquisadorResponsavel;
 	}
 
-	public void setEstagioPesquisa(int estagioPesquisa) {
-		this.estagioPesquisa = estagioPesquisa;
+	public void setPesquisadorResponsavel(Pessoa pesquisadorResponsavel) {
+		this.pesquisadorResponsavel = pesquisadorResponsavel;
+	}
+
+	public int getEstagio() {
+		return estagio;
+	}
+
+	public void setEstagio(int estagio) {
+		this.estagio = estagio;
 	}
 
 	public LocalDate getDataInicioPesquisa() {
@@ -44,14 +73,6 @@ public class Vacina {
 
 	public void setDataInicioPesquisa(LocalDate dataInicioPesquisa) {
 		this.dataInicioPesquisa = dataInicioPesquisa;
-	}
-
-	public String getPesquisadorResponsavel() {
-		return pesquisadorResponsavel;
-	}
-
-	public void setPesquisadorResponsavel(String pesquisadorResponsavel) {
-		this.pesquisadorResponsavel = pesquisadorResponsavel;
 	}
 
 }
