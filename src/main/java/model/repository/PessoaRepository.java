@@ -100,6 +100,22 @@ public class PessoaRepository implements BaseRepository<Pessoa> {
 		return pessoas;
 	}
 
+	public boolean cpfJaCadastrado(String cpf) {
+		boolean cpfJaUtilizado = false;	
+		
+		Connection conn = Banco.getConnection();
+		Statement stmt = Banco.getStatement(conn);
+		String query = " SELECT count(id) FROM pessoa WHERE cpf = " + cpf;
+		
+		try {
+			ResultSet resultado = stmt.executeQuery(query);
+			cpfJaUtilizado = (resultado.getInt(1) > 0);
+		} catch (SQLException e) {
+			System.out.println("Erro ao consultar CPF. Causa: " + e.getMessage());
+		}
+		
+		return cpfJaUtilizado;
+	}
 	@Override
 	public boolean alterar(Pessoa entidade) {
 		// TODO Auto-generated method stub

@@ -3,23 +3,42 @@ package model.entity;
 import java.time.LocalDate;
 
 public class Vacina {
-
+	private int id;
+	private String nome; 
 	private String paisOrigem;
-	private int estagioPesquisa;
+	private Pessoa pesquisadorResponsavel;
 	private LocalDate dataInicioPesquisa;
-	private String pesquisadorResponsavel;
-
-	public Vacina(String paisOrigem, int estagioPesquisa, LocalDate dataInicioPesquisa, String pesquisadorResponsavel) {
-		super();
-		this.paisOrigem = paisOrigem;
-		this.estagioPesquisa = estagioPesquisa;
-		this.dataInicioPesquisa = dataInicioPesquisa;
-		this.pesquisadorResponsavel = pesquisadorResponsavel;
+	private int estagio;
+	
+	public Vacina() {
+		
 	}
 
-	public Vacina() {
+	public Vacina(int id, String nome, String paisOrigem, Pessoa pesquisadorResponsavel, LocalDate dataInicioPesquisa,
+			int estagio) {
 		super();
-		// TODO Auto-generated constructor stub
+		this.id = id;
+		this.nome = nome;
+		this.paisOrigem = paisOrigem;
+		this.pesquisadorResponsavel = pesquisadorResponsavel;
+		this.dataInicioPesquisa = dataInicioPesquisa;
+		this.estagio = estagio;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getPaisOrigem() {
@@ -30,12 +49,12 @@ public class Vacina {
 		this.paisOrigem = paisOrigem;
 	}
 
-	public int getEstagioPesquisa() {
-		return estagioPesquisa;
+	public Pessoa getPesquisadorResponsavel() {
+		return pesquisadorResponsavel;
 	}
 
-	public void setEstagioPesquisa(int estagioPesquisa) {
-		this.estagioPesquisa = estagioPesquisa;
+	public void setPesquisadorResponsavel(Pessoa pesquisadorResponsavel) {
+		this.pesquisadorResponsavel = pesquisadorResponsavel;
 	}
 
 	public LocalDate getDataInicioPesquisa() {
@@ -46,12 +65,11 @@ public class Vacina {
 		this.dataInicioPesquisa = dataInicioPesquisa;
 	}
 
-	public String getPesquisadorResponsavel() {
-		return pesquisadorResponsavel;
+	public int getEstagio() {
+		return estagio;
 	}
 
-	public void setPesquisadorResponsavel(String pesquisadorResponsavel) {
-		this.pesquisadorResponsavel = pesquisadorResponsavel;
+	public void setEstagio(int estagio) {
+		this.estagio = estagio;
 	}
-
 }
