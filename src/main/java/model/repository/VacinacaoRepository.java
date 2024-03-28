@@ -23,7 +23,7 @@ public class VacinacaoRepository implements BaseRepository<Vacinacao> {
 		
 		try {
 			stmt.setInt(1, novaVacinacao.getIdPessoa());
-			stmt.setInt(2, novaVacinacao.getVacina().getId());
+			stmt.setInt(2, novaVacinacao.getVacina().getIdVacina());
 			stmt.setDate(3, Date.valueOf(novaVacinacao.getDataAplicacao()));
 			stmt.setInt(4, novaVacinacao.getAvaliacao());
 			
@@ -71,7 +71,7 @@ public class VacinacaoRepository implements BaseRepository<Vacinacao> {
 		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conn, query);
 		try {
 			stmt.setInt(1, vacinacaoEditada.getIdPessoa());
-			stmt.setInt(2, vacinacaoEditada.getVacina().getId());
+			stmt.setInt(2, vacinacaoEditada.getVacina().getIdVacina());
 			stmt.setDate(3, Date.valueOf(vacinacaoEditada.getDataAplicacao()));
 			stmt.setInt(4, vacinacaoEditada.getAvaliacao());
 			

@@ -3,34 +3,34 @@ package model.entity;
 import java.time.LocalDate;
 
 public class Vacina {
-	private int id;
-	private String nome; 
+	private int idVacina;
+	private String nome;
 	private Pais paisOrigem;
 	private Pessoa pesquisadorResponsavel;
-	private LocalDate dataInicioPesquisa;
 	private int estagio;
-	
+	private LocalDate dataInicioPesquisa;
+
+	public Vacina(int idVacina, String nome, Pais paisOrigem, Pessoa pesquisadorResponsavel, int estagio,
+			LocalDate dataInicioPesquisa) {
+		super();
+		this.idVacina = idVacina;
+		this.nome = nome;
+		this.paisOrigem = paisOrigem;
+		this.pesquisadorResponsavel = pesquisadorResponsavel;
+		this.estagio = estagio;
+		this.dataInicioPesquisa = dataInicioPesquisa;
+	}
+
 	public Vacina() {
 		
 	}
 
-	public Vacina(int id, String nome, Pais paisOrigem, Pessoa pesquisadorResponsavel, LocalDate dataInicioPesquisa,
-			int estagio) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.paisOrigem = paisOrigem;
-		this.pesquisadorResponsavel = pesquisadorResponsavel;
-		this.dataInicioPesquisa = dataInicioPesquisa;
-		this.estagio = estagio;
+	public int getIdVacina() {
+		return idVacina;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
+	public void setIdVacina(int idVacina) {
+		this.idVacina = idVacina;
 	}
 
 	public String getNome() {

@@ -33,7 +33,7 @@ public class VacinaRepository implements BaseRepository<Vacina> {
 			stmt.execute();
 			ResultSet resultado = stmt.getGeneratedKeys();
 			if (resultado.next()) {
-				novaVacina.setId(resultado.getInt(1));
+				novaVacina.setIdVacina(resultado.getInt(1));
 			}
 		} catch (SQLException e) {
 			System.out.println("Erro ao salvar nova vacina");
@@ -78,7 +78,7 @@ public class VacinaRepository implements BaseRepository<Vacina> {
 			stmt.setInt(4, vacinaEditada.getEstagio());
 			stmt.setDate(5, Date.valueOf(vacinaEditada.getDataInicioPesquisa()));
 
-			stmt.setInt(6, vacinaEditada.getId());
+			stmt.setInt(6, vacinaEditada.getIdVacina());
 			alterou = stmt.executeUpdate() > 0;
 		} catch (SQLException erro) {
 			System.out.println("Erro ao atualizar vacina");
@@ -104,7 +104,7 @@ public class VacinaRepository implements BaseRepository<Vacina> {
 			PessoaRepository pessoaRepository = new PessoaRepository();
 			if (resultado.next()) {
 				vacina = new Vacina();
-				vacina.setId(Integer.parseInt(resultado.getString("ID")));
+				vacina.setIdVacina(Integer.parseInt(resultado.getString("ID")));
 				vacina.setNome(resultado.getString("NOME"));
 				PaisRepository paisRepository = new PaisRepository();
 				vacina.setPaisOrigem(paisRepository.consultarPorId(resultado.getInt("idPais")));
@@ -138,7 +138,7 @@ public class VacinaRepository implements BaseRepository<Vacina> {
 			PessoaRepository pessoaRepository = new PessoaRepository();
 			while (resultado.next()) {
 				Vacina vacina = new Vacina();
-				vacina.setId(Integer.parseInt(resultado.getString("ID")));
+				vacina.setIdVacina(Integer.parseInt(resultado.getString("ID")));
 				vacina.setNome(resultado.getString("NOME"));
 				PaisRepository paisRepository = new PaisRepository();
 				vacina.setPaisOrigem(paisRepository.consultarPorId(resultado.getInt("idPais")));
@@ -257,3 +257,4 @@ public class VacinaRepository implements BaseRepository<Vacina> {
 		}
 	}
 }
+

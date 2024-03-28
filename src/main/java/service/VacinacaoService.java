@@ -17,7 +17,7 @@ public class VacinacaoService {
 
 		if(novaVacinacao.getIdPessoa() == 0 
 				|| novaVacinacao.getVacina() == null
-				|| novaVacinacao.getVacina().getId() == 0) {
+				|| novaVacinacao.getVacina().getIdVacina() == 0) {
 			throw new VacinacaoException("Informe a o id da pessoa e a vacina da aplicação");
 		}
 		
