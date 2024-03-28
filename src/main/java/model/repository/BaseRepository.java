@@ -3,6 +3,8 @@ package model.repository;
 
 import java.util.ArrayList;
 
+import model.entity.Pessoa;
+
 /**
  * 
  * Interface que contém os métodos que todos os DAOs devem implementar.
@@ -59,4 +61,6 @@ public interface BaseRepository<T> {
 	 * @return uma lista de objetos do tipo T.
 	 */
 	public ArrayList<T> consultarTodos();
+
+
 }

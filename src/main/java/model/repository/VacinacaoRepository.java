@@ -150,4 +150,41 @@ public class VacinacaoRepository implements BaseRepository<Vacinacao> {
 		}
 		return aplicacoes;
 	}
+	
+	
+	
+	//2-a
+	public void atualizarMediaSomaAvaliacoes(int idVacina) {
+        String query = "SELECT SUM(avaliacao) AS soma_avaliacoes FROM aplicacao_vacina WHERE id_vacina = ?";
+        try (Connection conn = Banco.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, idVacina);
+
+            try (ResultSet resultado = stmt.executeQuery()) {
+                if (resultado.next()) {
+                    int somaAvaliacoes = resultado.getInt("soma_avaliacoes");
+                    atualizarMediaSomaAvaliacoesNoBanco(idVacina, somaAvaliacoes);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao calcular a média da soma das avaliações da vacina com ID: " + idVacina);
+            System.out.println("Erro: " + e.getMessage());
+        }
+    }
+	
+	 private void atualizarMediaSomaAvaliacoesNoBanco(int idVacina, int somaAvaliacoes) {
+	        String query = "UPDATE vacina SET media_soma_avaliacoes = ? WHERE id = ?";
+	        try (Connection conn = Banco.getConnection();
+	             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+	            stmt.setInt(1, somaAvaliacoes);
+	            stmt.setInt(2, idVacina);
+
+	            stmt.executeUpdate();
+	        } catch (SQLException e) {
+	            System.out.println("Erro ao atualizar a média da soma das avaliações da vacina com ID: " + idVacina);
+	            System.out.println("Erro: " + e.getMessage());
+	        }
+	 }
 }

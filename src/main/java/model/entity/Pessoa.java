@@ -1,24 +1,30 @@
 package model.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Pessoa {
 
 	private int id;
 	private String nome;
 	private LocalDate dataNascimento;
-	private String sexo;
+	private char sexo;
 	private String cpf;
-	private String tipoDePessoa;
+	private int tipoDePessoa;
+	private Pais paisOrigem;
+	private ArrayList<Vacinacao> vacinacoes;
 
-	public Pessoa(int id, String nome, LocalDate dataNascimento, String sexo, String cpf, String tipoPessoa) {
+	public Pessoa(int id, String nome, LocalDate dataNascimento, char sexo, String cpf, int tipoDePessoa,
+			model.entity.Pais paisOrigem, ArrayList<model.entity.Vacinacao> vacinacoes) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
 		this.sexo = sexo;
 		this.cpf = cpf;
-		this.tipoDePessoa = tipoPessoa;
+		this.tipoDePessoa = tipoDePessoa;
+		this.paisOrigem = paisOrigem;
+		this.vacinacoes = vacinacoes;
 	}
 
 	public Pessoa() {
@@ -42,11 +48,11 @@ public class Pessoa {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public String getSexo() {
+	public char getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(String sexo) {
+	public void setSexo(char sexo) {
 		this.sexo = sexo;
 	}
 
@@ -66,19 +72,34 @@ public class Pessoa {
 		this.id = id;
 	}
 
-	public String gettipoDePessoa() {
+	public int gettipoDePessoa() {
 		return tipoDePessoa;
 	}
 
-	public void settipoDePessoa(String tipoDePessoa) {
+	public void settipoDePessoa(int tipoDePessoa) {
 		this.tipoDePessoa = tipoDePessoa;
 	}
 
 	@Override
 	public String toString() {
-		return "id: " + id + ", nome: " + nome + ", dataNascimento: " + dataNascimento + ", sexo: " + sexo
-				+ ", cpf: " + cpf + ", tipoPessoa: " + tipoDePessoa + "]";
+		return "id: " + id + ", nome: " + nome + ", dataNascimento: " + dataNascimento + ", sexo: " + sexo + ", cpf: "
+				+ cpf + ", tipoPessoa: " + tipoDePessoa + "]";
 	}
 
+	public Pais getPaisOrigem() {
+		return paisOrigem;
+	}
+
+	public void setPaisOrigem(Pais paisOrigem) {
+		this.paisOrigem = paisOrigem;
+	}
+
+	public ArrayList<Vacinacao> getVacinacoes() {
+		return vacinacoes;
+	}
+
+	public void setVacinacoes(ArrayList<Vacinacao> vacinacoes) {
+		this.vacinacoes = vacinacoes;
+	}
 
 }
