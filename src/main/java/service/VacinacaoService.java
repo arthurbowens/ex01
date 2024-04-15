@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import exception.ControleVacinasException;
-import exception.VacinacaoException;
 import model.entity.Vacinacao;
 import model.repository.VacinacaoRepository;
 
@@ -13,12 +12,12 @@ public class VacinacaoService {
 	private static final int NOTA_MAXIMA = 5;
 	private VacinacaoRepository vacinacaoRepository = new VacinacaoRepository();
 	
-	public Vacinacao salvar(Vacinacao novaVacinacao) throws VacinacaoException {
+	public Vacinacao salvar(Vacinacao novaVacinacao) throws ControleVacinasException {
 
 		if(novaVacinacao.getIdPessoa() == 0 
 				|| novaVacinacao.getVacina() == null
 				|| novaVacinacao.getVacina().getIdVacina() == 0) {
-			throw new VacinacaoException("Informe a o id da pessoa e a vacina da aplicação");
+			throw new ControleVacinasException("Informe a o id da pessoa e a vacina da aplicação");
 		}
 		
 		novaVacinacao.setDataAplicacao(LocalDate.now());
@@ -30,7 +29,7 @@ public class VacinacaoService {
 		return vacinacaoRepository.salvar(novaVacinacao);
 	}
 	
-	public boolean atualizar(Vacinacao vacinacaoEditada) throws VacinacaoException {
+	public boolean atualizar(Vacinacao vacinacaoEditada) throws ControleVacinasException {
 		return vacinacaoRepository.alterar(vacinacaoEditada);
 	}
 

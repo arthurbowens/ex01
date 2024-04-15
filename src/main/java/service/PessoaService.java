@@ -3,7 +3,7 @@ package service;
 import java.util.List;
 
 import exception.ControleVacinasException;
-import exception.VacinacaoException;
+import exception.ControleVacinasException;
 import model.entity.Pessoa;
 import model.entity.Vacina;
 import model.repository.PessoaRepository;
@@ -12,7 +12,7 @@ public class PessoaService {
 
 	private PessoaRepository repository = new PessoaRepository();
 
-	public Pessoa salvar(Pessoa novaPessoa) throws VacinacaoException {
+	public Pessoa salvar(Pessoa novaPessoa) throws ControleVacinasException {
 		validarCamposObrigatorios(novaPessoa);
 
 		validarCpf(novaPessoa);
@@ -37,13 +37,13 @@ public class PessoaService {
 		return repository.consultarTodos();
 	}
 
-	private void validarCpf(Pessoa novaPessoa) throws VacinacaoException {
+	private void validarCpf(Pessoa novaPessoa) throws ControleVacinasException {
 		if (repository.cpfJaCadastrado(novaPessoa.getCpf())) {
-			throw new VacinacaoException("CPF " + novaPessoa.getCpf() + " já cadastrado ");
+			throw new ControleVacinasException("CPF " + novaPessoa.getCpf() + " já cadastrado ");
 		}
 	}
 
-	private void validarCamposObrigatorios(Pessoa p) throws VacinacaoException {
+	private void validarCamposObrigatorios(Pessoa p) throws ControleVacinasException {
 		String mensagemValidacao = "";
 		if (p.getNome() == null || p.getNome().isEmpty()) {
 			mensagemValidacao += " - informe o nome \n";
@@ -65,7 +65,7 @@ public class PessoaService {
 		}
 
 		if (!mensagemValidacao.isEmpty()) {
-			throw new VacinacaoException("Preencha o(s) seguinte(s) campo(s) \n " + mensagemValidacao);
+			throw new ControleVacinasException("Preencha o(s) seguinte(s) campo(s) \n " + mensagemValidacao);
 		}
 	}
 	

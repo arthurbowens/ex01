@@ -1,4 +1,4 @@
-package exception;
+package exception.vemnox1;
 
 public class VacinacaoException extends Exception {
 
