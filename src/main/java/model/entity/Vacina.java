@@ -3,15 +3,21 @@ package model.entity;
 import java.time.LocalDate;
 
 public class Vacina {
+	
+	public static final int ESTAGIO_INICIAL = 1;
+	public static final int ESTAGIO_TESTES = 2;
+	public static final int ESTAGIO_APLICACAO_MASSA = 3;
+	
 	private int idVacina;
 	private String nome;
 	private Pais paisOrigem;
 	private Pessoa pesquisadorResponsavel;
 	private int estagio;
 	private LocalDate dataInicioPesquisa;
+	private double media;
 
 	public Vacina(int idVacina, String nome, Pais paisOrigem, Pessoa pesquisadorResponsavel, int estagio,
-			LocalDate dataInicioPesquisa) {
+			LocalDate dataInicioPesquisa, double media) {
 		super();
 		this.idVacina = idVacina;
 		this.nome = nome;
@@ -19,6 +25,7 @@ public class Vacina {
 		this.pesquisadorResponsavel = pesquisadorResponsavel;
 		this.estagio = estagio;
 		this.dataInicioPesquisa = dataInicioPesquisa;
+		this.media = media;
 	}
 
 	public Vacina() {
@@ -71,5 +78,13 @@ public class Vacina {
 
 	public void setEstagio(int estagio) {
 		this.estagio = estagio;
+	}
+
+	public double getMedia() {
+		return media;
+	}
+
+	public void setMedia(double media) {
+		this.media = media;
 	}
 }

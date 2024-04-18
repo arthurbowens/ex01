@@ -2,7 +2,7 @@ package controller;
 
 import java.util.List;
 
-import exception.VacinacaoException;
+import exception.ControleVacinasException;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -12,8 +12,8 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
-import model.entity.vacinacao.Vacinacao;
-import service.vacinacao.VacinacaoService;
+import model.entity.Vacinacao;
+import service.VacinacaoService;
 
 @Path("/vacinacao")
 public class VacinacaoController {
@@ -23,14 +23,14 @@ public class VacinacaoController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Vacinacao salvar(Vacinacao novaVacinacao) throws VacinacaoException{
+	public Vacinacao salvar(Vacinacao novaVacinacao) throws ControleVacinasException{
 		 return service.salvar(novaVacinacao);
 	}
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public boolean atualizar(Vacinacao vacinacaoEditada) throws VacinacaoException{
+	public boolean atualizar(Vacinacao vacinacaoEditada) throws ControleVacinasException{
 		 return service.atualizar(vacinacaoEditada);
 	}
 	

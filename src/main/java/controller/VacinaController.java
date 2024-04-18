@@ -2,6 +2,7 @@ package controller;
 
 import java.util.List;
 
+import exception.ControleVacinasException;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -12,12 +13,21 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import model.entity.Vacina;
+import model.seletor.VacinaSeletor;
 import service.VacinaService;
 
 @Path("/vacina")
 public class VacinaController {
 	
 	private VacinaService service = new VacinaService();
+	
+	@POST
+	@Path("/filtro")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Vacina> consultarComFiltros(VacinaSeletor seletor){
+		 return service.consultarComFiltros(seletor);
+	}
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -35,7 +45,7 @@ public class VacinaController {
 	
 	@DELETE
 	@Path("/{id}")
-	public boolean excluir(@PathParam("id") int id){
+	public boolean excluir(@PathParam("id") int id) throws ControleVacinasException{
 		 return service.excluir(id);
 	}
 	

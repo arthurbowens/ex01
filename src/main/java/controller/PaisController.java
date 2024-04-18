@@ -1,6 +1,6 @@
 package controller;
 
-import exception.VacinacaoException;
+import exception.ControleVacinasException;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -19,7 +19,7 @@ public class PaisController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Pais salvar(Pais novo) throws VacinacaoException{
+	public Pais salvar(Pais novo) throws ControleVacinasException{
 		 return service.salvar(novo);
 	}
 	

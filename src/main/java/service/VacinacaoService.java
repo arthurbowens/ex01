@@ -1,10 +1,17 @@
 package service;
 
+
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import exception.ControleVacinasException;
+import jakarta.validation.ValidationException;
+import model.entity.Pessoa;
+import model.entity.Vacina;
 import model.entity.Vacinacao;
+import model.repository.PessoaRepository;
+import model.repository.VacinaRepository;
 import model.repository.VacinacaoRepository;
 
 public class VacinacaoService {
@@ -13,7 +20,66 @@ public class VacinacaoService {
 	private VacinacaoRepository vacinacaoRepository = new VacinacaoRepository();
 	
 	public Vacinacao salvar(Vacinacao novaVacinacao) throws ControleVacinasException {
-
+		validarDadosVacinacao(novaVacinacao);
+		atualizarMediaVacina(novaVacinacao);
+		validarAcessoPessoaParaReceberVacina(novaVacinacao);
+		
+		return vacinacaoRepository.salvar(novaVacinacao);
+	}
+	
+	public boolean atualizar(Vacinacao vacinacaoEditada) throws ControleVacinasException {
+		validarDadosVacinacao(vacinacaoEditada);
+		atualizarMediaVacina(vacinacaoEditada);
+		validarAcessoPessoaParaReceberVacina(vacinacaoEditada);
+		
+		return vacinacaoRepository.alterar(vacinacaoEditada);
+	}
+	
+	private void validarAcessoPessoaParaReceberVacina(Vacinacao vacinacao) throws ControleVacinasException {
+		Vacina vac = vacinacao.getVacina();
+		Pessoa paciente = new PessoaRepository().consultarPorId(vacinacao.getIdPessoa());
+		
+		boolean podeReceberDose = false;
+		if(vac.getEstagio() == Vacina.ESTAGIO_INICIAL && paciente.gettipoDePessoa() == Pessoa.PESQUISADOR) {
+			podeReceberDose = true;
+		}
+		
+		if(vac.getEstagio() == Vacina.ESTAGIO_TESTES && 
+				(paciente.gettipoDePessoa() == Pessoa.PESQUISADOR || paciente.gettipoDePessoa() == Pessoa.VOLUNTARIO)) {
+			podeReceberDose = true;
+		}
+		
+		if(vac.getEstagio() == Vacina.ESTAGIO_APLICACAO_MASSA) {
+			podeReceberDose = true;
+		}
+		
+		if(!podeReceberDose) {
+			throw new ControleVacinasException("Usuário sem permissão para receber a vacina");
+		}
+	}
+	
+	private void atualizarMediaVacina(Vacinacao novaVacinacao) {
+		ArrayList<Vacinacao> dosesAplicadas = vacinacaoRepository.consultarPorIdVacina(novaVacinacao.getVacina().getIdVacina());
+		
+		double novaMediaVacina = 0;
+		double somatorioNotasDaVacina = 0;
+		
+		for(Vacinacao dose: dosesAplicadas) {
+			somatorioNotasDaVacina += dose.getAvaliacao();
+		}
+		
+		novaMediaVacina = (somatorioNotasDaVacina + novaVacinacao.getAvaliacao()) / (dosesAplicadas.size() + 1);
+		
+		VacinaRepository vacinaRepository = new VacinaRepository();
+		Vacina vacinaAplicada = vacinaRepository.consultarPorId(novaVacinacao.getVacina().getIdVacina());
+		vacinaAplicada.setMedia(novaMediaVacina);
+		
+		vacinaRepository.alterar(vacinaAplicada);
+		
+		novaVacinacao.setVacina(vacinaAplicada);
+	}
+	
+	private void validarDadosVacinacao(Vacinacao novaVacinacao) throws ControleVacinasException {
 		if(novaVacinacao.getIdPessoa() == 0 
 				|| novaVacinacao.getVacina() == null
 				|| novaVacinacao.getVacina().getIdVacina() == 0) {
@@ -25,12 +91,6 @@ public class VacinacaoService {
 		if(novaVacinacao.getAvaliacao() == 0) {
 			novaVacinacao.setAvaliacao(NOTA_MAXIMA);
 		}
-		
-		return vacinacaoRepository.salvar(novaVacinacao);
-	}
-	
-	public boolean atualizar(Vacinacao vacinacaoEditada) throws ControleVacinasException {
-		return vacinacaoRepository.alterar(vacinacaoEditada);
 	}
 
 	public boolean excluir(int id) {
@@ -45,15 +105,7 @@ public class VacinacaoService {
 		return vacinacaoRepository.consultarTodos();
 	}
 	
-	//public List<Vacinacao> consultarPorIdPessoa(int idPessoa) {
-		//return vacinacaoRepository.consultarPorId(idPessoa);
-	//}
-	
-	public void atualizarMediaSomaAvaliacoes(int idVacina, int somaAvaliacoes) {
-	
-		vacinacaoRepository.atualizarMediaSomaAvaliacoes(idVacina);
+	public List<Vacinacao> consultarPorIdPessoa(int idPessoa) {
+		return vacinacaoRepository.consultarPorIdPessoa(idPessoa);
 	}
-	
-	
-	
 }
