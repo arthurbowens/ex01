@@ -18,7 +18,7 @@ public class VacinacaoRepository implements BaseRepository<Vacinacao> {
 
 	@Override
 	public Vacinacao salvar(Vacinacao novaAplicacaoVacina) {
-		String sql = " INSERT INTO exemplos.aplicacao_vacina "
+		String sql = " INSERT INTO aplicacao_vacina "
 				+ " (id_pessoa, id_vacina, data_aplicacao, avaliacao) "
 				+ " VALUES(?, ?, ?, ?) ";
 		Connection conexao = Banco.getConnection();

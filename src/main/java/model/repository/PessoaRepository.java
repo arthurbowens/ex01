@@ -66,7 +66,7 @@ public class PessoaRepository implements BaseRepository<Pessoa> {
 	@Override
 	public boolean alterar(Pessoa pessoaEditada) {
 		boolean alterou = false;
-		String query = " UPDATE exemplos.pessoa "
+		String query = " UPDATE pessoa "
 				     + " SET nome=?, cpf=?, sexo=?, id_pais=? "
 				     + " data_nascimento=?, tipo=? "
 				     + " WHERE id=? ";
