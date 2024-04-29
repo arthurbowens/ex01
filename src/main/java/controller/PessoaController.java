@@ -21,6 +21,7 @@ public class PessoaController {
 	private PessoaService service = new PessoaService();
 	
 	@POST
+	@Path("/inserir")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Pessoa salvar(Pessoa novaPessoa) throws ControleVacinasException{
@@ -28,6 +29,7 @@ public class PessoaController {
 	}
 	
 	@PUT
+	@Path("/atualizar")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public boolean atualizar(Pessoa pessoaEditada) throws ControleVacinasException{
@@ -35,7 +37,7 @@ public class PessoaController {
 	}
 	
 	@DELETE
-	@Path("/{id}")
+	@Path("excluir/{id}")
 	public boolean excluir(@PathParam("id") int id) throws ControleVacinasException{
 		 return service.excluir(id);
 	}
@@ -50,5 +52,11 @@ public class PessoaController {
 	@Path("/todas")
 	public List<Pessoa> consultarTodas(){
 		 return service.consultarTodas();
+	}
+	
+	@GET
+	@Path("/pesquisadores")
+	public List<Pessoa> consultarPesquisadores(){
+		 return service.consultarPesquisadores();
 	}
 }

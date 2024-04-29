@@ -30,6 +30,7 @@ public class VacinaController {
 	}
 	
 	@POST
+	@Path("/inserir")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Vacina salvar(Vacina novaVacina){
@@ -37,6 +38,7 @@ public class VacinaController {
 	}
 	
 	@PUT
+	@Path("/atualizar")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public boolean atualizar(Vacina vacinaEditada){
@@ -44,7 +46,7 @@ public class VacinaController {
 	}
 	
 	@DELETE
-	@Path("/{id}")
+	@Path("excluir/{id}")
 	public boolean excluir(@PathParam("id") int id) throws ControleVacinasException{
 		 return service.excluir(id);
 	}

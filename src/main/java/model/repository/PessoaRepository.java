@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import model.entity.Pessoa;
 import model.repository.Banco;
@@ -165,6 +166,21 @@ public class PessoaRepository implements BaseRepository<Pessoa> {
 		}
 		return pessoas;
 	}
+	
+	private Pessoa construirDoResultSet1(ResultSet resultado) throws SQLException {
+		Pessoa pessoa = new Pessoa();
+		pessoa.setId(resultado.getInt("ID"));
+		pessoa.setNome(resultado.getString("NOME"));
+		pessoa.setCpf(resultado.getString("CPF"));
+		pessoa.setSexo(resultado.getString("SEXO").charAt(0));
+		pessoa.setDataNascimento(resultado.getDate("DATA_NASCIMENTO").toLocalDate()); 
+		pessoa.settipoDePessoa(resultado.getInt("TIPO"));
+		
+		PaisRepository paisRepository = new PaisRepository();
+		pessoa.setPaisOrigem(paisRepository.consultarPorId(resultado.getInt("ID_PAIS")));
+		
+		return pessoa;
+	}
 
 	public boolean cpfJaCadastrado(String cpf) {
 		boolean cpfJaUtilizado = false;	
@@ -182,5 +198,32 @@ public class PessoaRepository implements BaseRepository<Pessoa> {
 		
 		return cpfJaUtilizado;
 	}
+	
+	public List<Pessoa> consultarPesquisadores() {
+		ArrayList<Pessoa> pessoas = new ArrayList<>();
+		Connection conn = Banco.getConnection();
+		Statement stmt = Banco.getStatement(conn);
+		
+		ResultSet resultado = null;
+		String query = " SELECT * FROM pessoa WHERE tipo = " + Pessoa.PESQUISADOR;
+		
+		try{
+			resultado = stmt.executeQuery(query);
+			while(resultado.next()){
+				Pessoa pessoa = construirDoResultSet1(resultado);
+				pessoas.add(pessoa);
+			}
+		} catch (SQLException erro){
+			System.out.println("Erro ao consultar todos os pesquisadores");
+			System.out.println("Erro: " + erro.getMessage());
+		} finally {
+			Banco.closeResultSet(resultado);
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conn);
+		}
+		return pessoas;
+	}
+
+	
 }
 
