@@ -3,7 +3,6 @@ package model.repository;
 
 import java.util.ArrayList;
 
-import model.entity.Pessoa;
 
 /**
  * 
